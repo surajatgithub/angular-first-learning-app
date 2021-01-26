@@ -1,0 +1,16 @@
+<!-- <router-outlet></router-outlet> -->
+<p>Hello World</p>
+
+<app-button [name]="'submit'" [type]="'button'" (change)="buttonClicked($event)"></app-button>
+
+<app-card>
+  <ng-container class="heading">Heading</ng-container>  
+  <ng-container class="body">
+    <div class="card-title px-y">
+      Title
+    </div>
+    Body
+  </ng-container>
+</app-card>
+
+<contact-form></contact-form>
