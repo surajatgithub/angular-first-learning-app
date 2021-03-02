@@ -1,13 +1,43 @@
-<form action="">
-    <div class="form-group">
-        <lable for="firtsName">First Name</lable>
-        <input id="firtsName" type="text" class="form-control" />
+<form #formContact="ngForm" (ngSubmit)="log(formContact)">
+    {{ formContact.value | json }}
+    <div ngModelGroup="contact" #contact="ngModelGroup">
+        <div class="form-group">
+            <label for="firtsName">First Name</label>
+            <input 
+                ngModel 
+                #inputFirtsName="ngModel" 
+                required
+                name="firtsName"
+                id="firtsName" 
+                type="text" 
+                class="form-control"
+                (change)="log(inputFirtsName)" />
+            <div class="form-error-group" *ngIf="inputFirtsName.touched && inputFirtsName.invalid">
+                <p class="text-danger" *ngIf="inputFirtsName.errors.required">First Name is required.</p>            
+            </div>
+        </div>
     </div>
     <div class="form-group">
-        <lable for="comment">Comment</lable>
-        <textarea id="comment" cols="30" rows="10" class="form-control"></textarea>
+        <label for="comment">Comment</label>
+        <textarea 
+            ngModel 
+            required
+            #inputComment="ngModel" 
+            name="comment" 
+            id="comment" 
+            cols="30" 
+            rows="10" 
+            class="form-control"></textarea>
+        <div class="form-error-group" *ngIf="inputComment.touched && inputComment.invalid">
+            <p class="text-danger" *ngIf="inputComment.errors.required">Comment field is required.</p>            
+        </div>
     </div>
     <div class="form-group">
-        <textarea id="comment" cols="30" rows="10" class="form-control"></textarea>
+        <label>
+            <input type="checkbox" ngModel name="isSubcribed" /> Subcribe to mailing list.
+        </label>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="formContact.invalid">Submit</button>
     </div>
 </form>

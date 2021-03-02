@@ -12,4 +12,9 @@ export class ContactFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  log(c) {
+    console.log('c: ', c);
+    console.log('c.value: ', c.value);
+  }
+
 }
