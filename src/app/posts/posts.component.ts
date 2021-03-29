@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../common/services/post.service';
-import { HttpResponseBase } from '@angular/common/http';
+import { PostService } from "../common/services/post.service";
 
 @Component({
   selector: 'app-posts',
@@ -19,51 +18,34 @@ export class PostsComponent implements OnInit {
   }
 
   getPosts(): void {
-    this.postHttp.getPosts().subscribe(
-      (response) => {
-        this.posts = JSON.parse(response);
-      },
-      (error: HttpResponseBase) => {
-        // console.log('Unexpected error occured.');
-        console.log(error);
+    this.postHttp.getAll().subscribe(
+      (posts) => {
+        this.posts = posts;
       });
   }
 
   createPost(input: HTMLInputElement): void {
     let post = { title: input.value };
-    this.postHttp.createPost(post).subscribe(
-      (response) => {
-        let _response = JSON.parse(response);
-        post['id'] = _response.id
+    this.postHttp.create(post).subscribe(
+      (createdPost) => {
+        post['id'] = createdPost.id
         this.posts.splice(0, 0, post);
         input.value = "";
-      },
-      (error: HttpResponseBase) => {
-        // console.log('Unexpected error occured.');
-        console.log(error);
       });
   }
 
   updatePost(post: any): void {
-    this.postHttp.updatePost(post.id, { isRead: true }).subscribe(
-      (response) => {
+    this.postHttp.update(post.id, { isRead: true }).subscribe(
+      (updatedPost) => {
         // let _response = JSON.parse(response);
-      },
-      (error: HttpResponseBase) => {
-        // console.log('Unexpected error occured.');
-        console.log(error);
       });
   }
 
   deletePost(post: any): void {
-    this.postHttp.deletePost(post.id).subscribe(
-      (response) => {
+    this.postHttp.delete(post.id).subscribe(
+      () => {
         let index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
-      },
-      (error: HttpResponseBase) => {
-        // console.log('Unexpected error occured.');
-        console.log('3: ', error);
       });
   }
 }

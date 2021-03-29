@@ -1,3 +1,4 @@
+import { NotFoundError } from './not-fountd.error';
 import { AppError } from './app.error';
 import { retry, catchError } from 'rxjs/operators';
 import {
@@ -16,10 +17,13 @@ export class ErrorIntercepter implements HttpInterceptor {
         return next.handle(request).pipe(
             retry(1),
             catchError((error: HttpErrorResponse) => {
-                console.log('2. error: ', error);
-                console.log('2. error: ', typeof (error));
-                // return throwError(error);
-                return throwError(new AppError(error));
+                let e = new AppError(error);
+                console.log('An Error Occured.');
+                console.log(e);
+                if (error.status === 404) {
+                    return throwError(new NotFoundError(error));
+                }
+                return throwError(e);
             })
         );
     }
