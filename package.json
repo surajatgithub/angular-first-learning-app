@@ -6,6 +6,7 @@
     "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
+    "deploy:heroku": "git push origin master && git push heroku master",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --prod"
