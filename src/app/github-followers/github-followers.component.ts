@@ -20,13 +20,9 @@ export class GithubFollowersComponent implements OnInit {
       .subscribe(([paramMap, queryParamMap]) => {
         let id = paramMap.get('id');
         let username = paramMap.get('username');
-        console.log('id: ', id);
-        console.log('username: ', username);
 
         let page = queryParamMap.get('page');
         let order = queryParamMap.get('order');
-        console.log('page: ', page);
-        console.log('order: ', order);
 
         this.service.getAll()
           .subscribe(followers => this.followers = followers);
