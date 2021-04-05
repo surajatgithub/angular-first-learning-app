@@ -1,0 +1,12 @@
+<form #f="ngForm" (submit)="submitDialogForm(f)">
+    <p>HI {{ data.name }}</p>
+
+    <mat-form-field>
+        <mat-label>Animal Name</mat-label>
+        <input [(ngModel)]="data.animal" name="animal" matInput required type="text" placeholder="What's your animal name?" />
+    </mat-form-field>
+
+    <p>
+        <button type="submit" mat-raised-button [disabled]="f.invalid" >Submit</button>
+    </p>
+</form>

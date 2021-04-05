@@ -30,6 +30,16 @@
             </li>
             <li 
                 *ngIf="isLoggedIn()"
+                routerLinkActive="active" class="nav-item">
+                <a class="nav-link" routerLink="/courses">Courses</a>
+            </li>
+            <li 
+                *ngIf="isLoggedIn()"
+                routerLinkActive="active" class="nav-item">
+                <a class="nav-link" routerLink="/material">Material Components</a>
+            </li>
+            <li 
+                *ngIf="isLoggedIn()"
                 class="nav-item">
                 <a class="nav-link" (click)="logout()">Logout</a>
             </li>

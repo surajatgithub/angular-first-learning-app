@@ -1,9 +1,13 @@
+import { MatComponentsModule } from './mat-components/mat-components.module';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+// Angular animation
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Auth Service
 import { AuthService } from './common/services/auth.service';
@@ -31,6 +35,9 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NoAccessComponent } from './no-access/no-access.component';
+import { MaterialComponent } from './material/material.component';
+import { CoursesComponent } from './courses/courses.component';
+import { DialogDataComponent } from './dialog-data/dialog-data.component';
 
 // Error Handling
 import { ErrorIntercepter } from './common/errors/error.interceptor';
@@ -51,24 +58,40 @@ import { ErrorIntercepter } from './common/errors/error.interceptor';
     AdminComponent,
     LoginComponent,
     SignupComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    CoursesComponent,
+    MaterialComponent,
+    DialogDataComponent
   ],
   imports: [
+    // Browser
     BrowserModule,
-    AppRoutingModule,
+
+    // Form
     FormsModule,
     ReactiveFormsModule,
+
+    // Http 
     HttpClientModule,
+
+    // Angular material
+    MatComponentsModule,
+    BrowserAnimationsModule,
+
+    // Routing
+    AppRoutingModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
+      { path: 'login', component: LoginComponent },
       { path: 'followers/:id/:username', component: GithubProfileComponent, canActivate: [AuthGuardService] },
       { path: 'followers', component: GithubFollowersComponent, canActivate: [AuthGuardService] },
       { path: 'posts', component: PostsComponent, canActivate: [AuthGuardService] },
-      { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
-      { path: 'login', component: LoginComponent },
+      { path: 'courses', component: CoursesComponent, canActivate: [AuthGuardService] },
+      { path: 'material', component: MaterialComponent, canActivate: [AuthGuardService] },
       { path: 'no-access', component: NoAccessComponent },
       { path: '**', component: NotFoundComponent },
-    ]),
+    ])
   ],
   providers: [
     AuthService,
